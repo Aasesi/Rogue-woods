@@ -1,5 +1,5 @@
-#ifndef UTILS_H_
-#define UTILS_H_
+#ifndef UTILS_HPP_
+#define UTILS_HPP_
 
 #include <unordered_map>
 #include <filesystem>
@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 namespace fs = std::filesystem;
 
@@ -27,6 +28,7 @@ const std::string Direction_string[8] =
 {
 	"North", "Northeast", "Northwest", "South", "Southeast", "Southwest", "East", "West"
 };
+
 
 namespace my_utils
 {
