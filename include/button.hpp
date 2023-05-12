@@ -3,6 +3,7 @@
 
 #include "interface_element.hpp"
 #include "state.hpp"
+#include "game_state.hpp"
 
 enum class type_of_button
 {

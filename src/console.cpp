@@ -1,7 +1,10 @@
 #include "console.hpp"
 
-Console::Console()
+Console::Console(std::string path, sf::Vector2f position)
 {
+	this->interface_texture.loadFromFile(path);
+	this->interface_sprite.setTexture(interface_texture);
+	this->interface_sprite.setPosition(position);
 	if (!_font.loadFromFile(font_path))
 	{
 	}

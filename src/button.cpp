@@ -16,7 +16,7 @@ void Button::handle_input(sf::Event &event, sf::RenderWindow &window, sf::Vector
     case type_of_button::Play_button:
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && contains(mousepos))
         {
-            std::unique_ptr<State> game = std::make_unique<State>();
+            std::unique_ptr<Game_state> game = std::make_unique<Game_state>(game_background);
             game->setManager(state_m);
             state_m->push(std::move(game));
         }
