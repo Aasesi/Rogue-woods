@@ -8,7 +8,7 @@
 class Game_state : public State
 {
 private:
-    std::shared_ptr<Console> console;
+    std::unique_ptr<Console>* console;
 
 public:
     Game_state(const std::string path);

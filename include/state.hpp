@@ -45,14 +45,14 @@ public:
 		s_manager = manager;
 		is_manager_null = false;
 	}
-	virtual void add_interface_element(std::shared_ptr<interface_element> element)
+	virtual void add_interface_element(std::unique_ptr<interface_element> element)
 	{
-		interface_elements.push_back(element);
+		interface_elements.push_back(std::move(element));
 	};
 protected:
 	std::shared_ptr<State_manager> s_manager = nullptr;
 	bool is_manager_null = true;
-	std::vector<std::shared_ptr<interface_element>> interface_elements;
+	std::vector<std::unique_ptr<interface_element>> interface_elements;
 	sf::Sprite background_sprite;
     sf::Texture background_texture;
 
