@@ -11,9 +11,9 @@ Player_input::Player_input(std::string path, sf::Vector2f position, Console*cons
     {
     }
     _text.setFont(_font);
-    _text.setCharacterSize(24);
+    _text.setCharacterSize(20);
     _text.setString(default_string);
-    _text.setPosition(sf::Vector2f(1360.f, 1185.f));
+    _text.setPosition(sf::Vector2f(1370.f, 1190.f));
     _text.setFillColor(sf::Color::White);
 }
 

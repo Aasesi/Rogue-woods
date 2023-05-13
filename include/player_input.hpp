@@ -11,7 +11,7 @@ class Player_input : public interface_element
 private:
     sf::Text _text;
     sf::Font _font;
-    const std::string default_string = "WRITE YOUR MESSAGE HERE...";
+    const std::string default_string = "Write your message here...";
     std::string input_text;
     bool clicked = false;
     bool sending_message = false;
