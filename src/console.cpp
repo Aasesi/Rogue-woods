@@ -10,7 +10,8 @@ Console::Console(std::string path, sf::Vector2f position)
 	}
 	_text.setFont(_font);
 	_text.setCharacterSize(24);
-	_text.setPosition(sf::Vector2f(95.f, 200.f));
+	_text.setString("hELLO");
+	_text.setPosition(sf::Vector2f(1400.f, 400.f));
 	_text.setFillColor(sf::Color::White);
 
 	dir = None;
@@ -149,4 +150,10 @@ bool Console::is_scrolled()
 	{
 		return true;
 	}
+}
+
+void Console::render(sf::RenderWindow &window)
+{
+	window.draw(this->interface_sprite);
+	window.draw(this->_text);
 }

@@ -4,11 +4,11 @@
 #include "state.hpp"
 #include "console.hpp"
 #include <memory>
+#include "player_input.hpp"
 
 class Game_state : public State
 {
 private:
-    std::unique_ptr<Console>* console;
 
 public:
     Game_state(const std::string path);

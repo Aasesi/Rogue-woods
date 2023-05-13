@@ -30,6 +30,7 @@ public:
     Console(std::string path, sf::Vector2f position);
     void handle_input(sf::Event &event, sf::RenderWindow &window, sf::Vector2f mousepos) override;
     void update() override;
+    void render(sf::RenderWindow &window) override;
     void add_new_text(std::string new_text);
     void get_focus();
     bool is_scrolled();
