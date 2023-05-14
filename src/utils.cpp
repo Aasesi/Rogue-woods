@@ -6,7 +6,7 @@ namespace my_utils
 	{
 		fs::path current_dir = fs::current_path();
 		fs::path parent_dir = current_dir.parent_path();
-		fs::path filePath = parent_dir / "Textfiles";
+		fs::path filePath = parent_dir / "Assets";
 		filePath /= name_of_the_file;
 		if (!fs::exists(filePath))
 		{
@@ -76,5 +76,34 @@ namespace my_utils
 			}
 		}
 		return text;
+	}
+	std::queue<std::pair<std::string, std::string>> read_map(std::string name_of_the_file)
+	{
+		fs::path current_dir = fs::current_path();
+		fs::path parent_dir = current_dir.parent_path();
+		fs::path filePath = parent_dir / "Assets";
+		filePath /= name_of_the_file;
+		if (!fs::exists(filePath))
+		{
+			std::cerr << "Error: file not found!" << std::endl;
+		}
+		std::ifstream file(filePath);
+		std::queue<std::pair<std::string, std::string>> lines;
+		if (!file.is_open())
+		{
+			std::cout << "Unable to open file: " << filePath << std::endl;
+			return lines;
+		}
+		std::string line;
+		std::regex regex("(\\S+)\\s(\\S+)");
+		while (getline(file, line))
+		{
+			std::smatch match;
+			if (std::regex_match(line, match, regex))
+			{
+				lines.emplace(std::make_pair(match[1], match[2]));
+			}
+		}
+		return lines;
 	}
 }
