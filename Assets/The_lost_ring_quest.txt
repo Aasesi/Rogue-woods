@@ -1,0 +1,50 @@
+{
+"name": "The Lost Ring",
+"text": "While exploring the forest, you come across a distraught young woman who tells you she lost her wedding ring while out for a walk. She's desperate to find it before her husband finds out. She asks if you could help her search for it.",
+"sub_options":
+{
+"name": "Agree to help",
+"text": "You agree to help the young woman find her lost ring. You begin searching in the area where she thinks she might have lost it. After a short while, you find a clue - a trail of trampled grass. You follow it deeper into the forest.",
+"sub_options":
+{
+"name": "Track for the ring",
+"text": "You follow the trail and it leads you to a clearing in the forest. There, you find a group of goblins who have taken the ring. They're currently arguing over how to divide the treasure that they've stolen from other travelers. The ring is among the treasures they've collected.",
+"sub_options":
+{
+"name": "Fight the goblins",
+"text": "You decide to engage the goblins in combat.
+"sub_options":
+{
+"name": "Win",
+"text": "It's a tough fight, but you manage to defeat them and recover the ring.",
+"sub_options":
+{
+"name": "Return the ring",
+"text": "You return the ring to the young woman and she rewards you with a handful of gold coins.",
+"sub_options": []
+}
+{
+"name": "Take the ring",
+"text": "You decide to take the ring for yourself",
+"sub_options": []
+}
+}
+{
+"name": "Lose",
+"text": "You lost the fight but managed to escape the goblins",
+"sub_options": []
+}
+}
+{
+"name": "Negotiate with the goblins",
+"text": "You decide to try and negotiate with the goblins instead of fighting. You offer them some of your own gold in exchange for the young woman's ring. The goblins agree to the deal and you're able to recover the ring. You return it to the young woman and she rewards you with a handful of gold coins.",
+"sub_options": []
+}
+}
+}
+{
+"name": "Refuse to help",
+"text": "You refuse to help the young woman find her lost ring. She looks crestfallen, but understands. You continue on your journey through the forest.",
+"sub_options": []
+}
+}

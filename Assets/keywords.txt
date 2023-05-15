@@ -1,0 +1,35 @@
+Forest (
+Navigate through the Forest
+Go deep into Forest
+Trek the forest
+Scramble over fallen trees
+Push through dense foliage
+Use a machete to clear a path and move
+)
+Trail (
+Follow the trail
+)
+Bridge (
+Cross the old wooden bridge
+)
+Clearing (
+Follow the winding path towards a meadow
+Wander
+Navigate through the tall grass of the meadow
+)
+Ancienttree (
+Venture towards the ancient tree
+)
+Bandithideout (
+Follow the scent of a nearby campfire
+)
+Cave (
+Explore the Cave
+Follow the scent of a nearby campfire
+)
+Start (
+You do not feel like going back there
+)
+River (
+Nothing
+)

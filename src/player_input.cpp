@@ -1,12 +1,13 @@
 #include "player_input.hpp"
 
 // Tu może być coś źle z ptr
-Player_input::Player_input(std::string path, sf::Vector2f position, Console*console_ptr)
+Player_input::Player_input(std::string path, sf::Vector2f position, Console*console_ptr, Map* map_ptr)
 {
     this->interface_texture.loadFromFile(path);
     this->interface_sprite.setTexture(interface_texture);
     this->interface_sprite.setPosition(position);
     console = console_ptr;
+    map = map_ptr;
     if (!_font.loadFromFile(font_path))
     {
     }
@@ -17,18 +18,33 @@ Player_input::Player_input(std::string path, sf::Vector2f position, Console*cons
     _text.setFillColor(sf::Color::White);
 }
 
+// Moge dodac gdy ESC zeby wyjsc
 void Player_input::update()
 {
+    // When writing text
     if (clicked)
     {
         _text.setString(input_text);
     }
+    // When player pressed enter
     else if (sending_message)
     {
-        _text.setString(default_string);
-        console->add_new_text(input_text);
-        input_text.erase();
-        sending_message = false;
+        if(check_option_availibility(input_text))
+        {
+            map->update_position(input_text);
+            input_text = "<After contemplating you decided to " + input_text + ">" + "\n";
+            _text.setString(default_string);
+			console->add_new_text(input_text);
+			input_text.erase();
+			sending_message = false;
+        }
+        else
+        {
+            _text.setString(default_string);
+			console->add_new_text("Incorrect decision");
+			input_text.erase();
+			sending_message = false;
+        }
     }
 }
 
@@ -64,4 +80,9 @@ void Player_input::render(sf::RenderWindow &window)
 {
     window.draw(this->interface_sprite);
     window.draw(this->_text);
+}
+
+bool Player_input::check_option_availibility(std::string& text)
+{
+    return map->get_current_node()->check_availibility(text);
 }

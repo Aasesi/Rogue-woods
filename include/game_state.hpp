@@ -3,6 +3,7 @@
 
 #include "state.hpp"
 #include "console.hpp"
+#include "map.hpp"
 #include <memory>
 #include "player_input.hpp"
 

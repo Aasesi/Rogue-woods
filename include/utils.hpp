@@ -12,8 +12,6 @@
 
 namespace fs = std::filesystem;
 
-
-
 enum class Face_direction
 {
     North,
@@ -22,19 +20,16 @@ enum class Face_direction
     West
 };
 
-const std::string Direction_string[4] = 
-{
-	"North",  "South", "East", "West"
-};
-
+const std::string Direction_string[4] =
+    {
+        "North", "South", "East", "West"};
 
 namespace my_utils
 {
     std::unordered_map<std::string, std::vector<std::string>> read_from_file(std::string name_of_the_file);
     std::string format_text(std::string text);
     std::queue<std::pair<std::string, std::string>> read_map(std::string name_of_the_file);
-    
+    std::string connect_strings_in_vector(std::vector<std::string> &vector_of_strings);
 }
-
 
 #endif

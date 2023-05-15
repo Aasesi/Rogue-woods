@@ -106,4 +106,13 @@ namespace my_utils
 		}
 		return lines;
 	}
+	std::string connect_strings_in_vector(std::vector<std::string> &vector_of_strings)
+	{
+		std::string connected_string;
+		for (const std::string &str : vector_of_strings)
+		{
+			connected_string += str;
+		}
+		return connected_string;
+	}
 }
