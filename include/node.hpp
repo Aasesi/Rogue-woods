@@ -11,6 +11,8 @@
 #include "quest.hpp"
 
 class Node;
+
+//Move option
 struct Option
 {
     std::string description;
@@ -40,6 +42,7 @@ protected:
     bool arrived = true;
 
 public:
+    // Constructors and destructors
     Node(){};
     Node(std::string descript, std::string landmark)
     {
@@ -47,6 +50,7 @@ public:
         noteable_landmark = landmark;
     };
     ~Node(){};
+    
     virtual void add_option(Option some_option) { options.push_back(some_option); };
     // Można się tego pozbyć chyba bo useless troszku
     virtual std::string merge_all_options()
@@ -100,6 +104,7 @@ public:
                 }
                 console->add_new_text(whole_text);
                 action_done = true;
+                
             }
             else
             {

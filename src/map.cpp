@@ -2,11 +2,10 @@
 
 Map::Map(std::string path, sf::Vector2f position, int size, Console *console_ptr)
 {
-    //this->interface_texture.loadFromFile(path);
-    //this->interface_sprite.setTexture(interface_texture);
-    //this->interface_sprite.setPosition(position);
+    this->interface_texture.loadFromFile(path);
+    this->interface_sprite.setTexture(interface_texture);
+    this->interface_sprite.setPosition(position);
     console = console_ptr;
-    nodes.reserve(size);
     make_map();
 }
 
@@ -19,7 +18,7 @@ void Map::make_map()
     // Create basic options
     create_moving_options();
     // Setting starting node
-    current_node = nodes[9][9].get();
+    current_node = nodes[1][1].get();
 }
 
 void Map::make_nodes()
@@ -28,14 +27,16 @@ void Map::make_nodes()
     std::unordered_map<std::string, std::vector<std::string>> descript = my_utils::read_from_file("Locationdescription.txt");
     for (int i = 0; i < rows; i++)
     {
+        std::vector<std::unique_ptr<Node>> new_nodes;
         for (int j = 0; j < columns; j++)
         {
             // Typ terenu
             std::string d = my_utils::connect_strings_in_vector(descript[node_info.front().second]);
             // To drugie z node_info to chyba nazwa miala być lecz moge się mylić
-            nodes[i].emplace_back(std::make_unique<Node>(d, node_info.front().second));
+            new_nodes.emplace_back(std::make_unique<Node>(d, node_info.front().second));
             node_info.pop();
         }
+        nodes.push_back(std::move(new_nodes));
     }
 }
 
@@ -131,6 +132,7 @@ void Map::update()
     if (!made_action)
     {
         current_node->update(console);
+        made_action = true;
     }
 }
 
@@ -142,6 +144,7 @@ Node* Map::get_current_node()
 void Map::update_position(std::string move_option)
 {
     current_node = current_node->next_node(move_option);
+    made_action = false;
 }
 
 void Map::handle_input(sf::Event& event, sf::RenderWindow& window, sf::Vector2f mousepos)
