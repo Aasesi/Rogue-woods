@@ -9,6 +9,7 @@
 #include <iostream>
 #include <queue>
 #include <SFML/Graphics.hpp>
+#include "quest_option.hpp"
 
 namespace fs = std::filesystem;
 

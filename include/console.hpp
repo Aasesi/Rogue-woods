@@ -22,7 +22,7 @@ private:
     std::string console_text;
     bool is_full = false;
     int curr_lines = 0;
-    int const number_of_lines = 28;
+    int const number_of_lines = 57;
     sf::Text _text;
     sf::Font _font;
 

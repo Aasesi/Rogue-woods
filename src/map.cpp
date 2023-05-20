@@ -78,6 +78,7 @@ void Map::make_connection(Node *first, Node *second, Face_direction dir)
     first->add_neighbour(second, dir);
 }
 
+// Mozliwe ze mozna zamienic opcje na unique ptr moze idk
 void Map::create_moving_options()
 {
     std::unordered_map<std::string, std::vector<std::string>> keywords = my_utils::read_from_file("keywords.txt");
@@ -110,21 +111,21 @@ Option Map::make_option_for_ptr(Node *text_for_ptr, std::unordered_map<std::stri
 {
     std::string option = "";
     std::string land = text_for_ptr->get_landmark();
-    Option some_option;
     if (keys[land].size() <= 1)
     {
-        option += keys[land][0];
+        option += "<" + Direction_string[static_cast<int>(dir)] + "> " + keys[land][0];
+        Option some_option(option, Direction_string[static_cast<int>(dir)], "Move option", text_for_ptr);
+        return some_option;
     }
     else
     {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> dis(0, static_cast<unsigned int>(keys[land].size() - 1));
-        option += keys[land][dis(gen)];
-        some_option.description = "<" + Direction_string[static_cast<int>(dir)] + "> " + option;
-        some_option.nextnode = text_for_ptr;
+        option = "<" + Direction_string[static_cast<int>(dir)] + "> " + keys[land][dis(gen)];
+        Option some_option(option, Direction_string[static_cast<int>(dir)], "Move option", text_for_ptr);
+        return some_option;
     }
-    return some_option;
 }
 
 void Map::update()

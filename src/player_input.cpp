@@ -15,7 +15,7 @@ Player_input::Player_input(std::string path, sf::Vector2f position, Console*cons
     _text.setCharacterSize(20);
     _text.setString(default_string);
     _text.setPosition(sf::Vector2f(1370.f, 1190.f));
-    _text.setFillColor(sf::Color::White);
+    _text.setFillColor(sf::Color::Black);
 }
 
 // Moge dodac gdy ESC zeby wyjsc
@@ -32,7 +32,7 @@ void Player_input::update()
         if(check_option_availibility(input_text))
         {
             map->update_position(input_text);
-            input_text = "<After contemplating you decided to " + input_text + ">" + "\n";
+            input_text = "\n<After contemplating you decided to " + input_text + ">" + "\n\n";
             _text.setString(default_string);
 			console->add_new_text(input_text);
 			input_text.erase();
@@ -41,7 +41,7 @@ void Player_input::update()
         else
         {
             _text.setString(default_string);
-			console->add_new_text("Incorrect decision");
+			console->add_new_text("\nIncorrect decision\n");
 			input_text.erase();
 			sending_message = false;
         }

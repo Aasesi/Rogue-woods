@@ -5,6 +5,7 @@
 #include "node.hpp"
 #include <memory>
 #include "console.hpp"
+#include "option.hpp"
 #include <random>
 
 

@@ -1,5 +1,6 @@
 #include "console.hpp"
 
+// 57 to maks słów
 Console::Console(std::string path, sf::Vector2f position)
 {
 	this->interface_texture.loadFromFile(path);
@@ -9,10 +10,10 @@ Console::Console(std::string path, sf::Vector2f position)
 	{
 	}
 	_text.setFont(_font);
-	_text.setCharacterSize(20);
+	_text.setCharacterSize(16);
 	_text.setString("hELLO");
-	_text.setPosition(sf::Vector2f(1400.f, 250.f));
-	_text.setFillColor(sf::Color::White);
+	_text.setPosition(sf::Vector2f(1350.f, 250.f));
+	_text.setFillColor(sf::Color::Black);
 
 	dir = None;
 }
