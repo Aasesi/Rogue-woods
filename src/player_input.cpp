@@ -32,7 +32,7 @@ void Player_input::update()
         if(check_option_availibility(input_text))
         {
             map->update_position(input_text);
-            input_text = "\n<After contemplating you decided to " + input_text + ">" + "\n\n";
+            input_text = "\n<After contemplating you decided to: " + input_text + ">" + "\n\n";
             _text.setString(default_string);
 			console->add_new_text(input_text);
 			input_text.erase();

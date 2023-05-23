@@ -67,12 +67,11 @@ namespace my_utils
 		int text_len = text.length();
 		if (text_len > 70)
 		{
-			int i = 60;
-			while (text_len - i > 65)
+			while (text_len > 70)
 			{
-				int space = text.find_last_of(' ', i);
+				int space = text.find_last_of(' ', text_len - 60);
 				text.insert(space + 1, "\n");
-				i += 60;
+				text_len -= 60;
 			}
 		}
 		return text;
@@ -115,5 +114,74 @@ namespace my_utils
 		}
 		return connected_string;
 	}
-	
+	std::vector<std::unique_ptr<Quest_option>> extract_text_for_quest(std::string name_of_the_file)
+	{
+		std::vector<std::unique_ptr<Quest_option>> quest_vec;
+		fs::path current_dir = fs::current_path();
+		fs::path parent_dir = current_dir.parent_path();
+		fs::path filePath = parent_dir / "Assets";
+		filePath /= name_of_the_file;
+		if (!fs::exists(filePath))
+		{
+			std::cerr << "Error: file not found!" << std::endl;
+		}
+		std::ifstream file(filePath);
+		std::queue<std::pair<std::string, std::string>> lines;
+		if (!file.is_open())
+		{
+			std::cout << "Unable to open file: " << filePath << std::endl;
+			return quest_vec;
+		}
+		std::string line;
+		std::regex name_pattern("\"name\":\\s*\"([^\"]+)\"");
+		std::regex text_pattern("\"text\": \"([^\"]+)\"");
+		std::regex option_pattern("\"sub_options\": \\[");
+
+		Quest_option *current_quest = nullptr;
+
+		std::smatch match;
+
+		while (getline(file, line))
+		{
+			if (line == "{")
+			{
+				if (current_quest != nullptr)
+				{
+					// zrob id dla quest_opption
+					std::unique_ptr<Quest_option> new_quest = std::make_unique<Quest_option>("", "", "Option quest", current_quest, false);
+					current_quest->add_sub_option(new_quest.get());
+					current_quest = new_quest.get();
+					quest_vec.push_back(std::move(new_quest));
+				}
+				else
+				{
+					std::unique_ptr<Quest_option> new_quest = std::make_unique<Quest_option>();
+					current_quest = new_quest.get();
+					quest_vec.push_back(std::move(new_quest));
+					continue;
+				}
+			}
+			else if (std::regex_search(line, match, name_pattern))
+			{ 
+				current_quest->assign_directi(match[1]);
+			}
+			else if (std::regex_search(line, match, text_pattern))
+			{
+				current_quest->assign_description(format_text(match[1]));
+			}
+			else if (std::regex_search(line, match, option_pattern))
+			{
+				continue;
+			}
+			else if (line == "}")
+			{
+				if (!current_quest->is_parent_null())
+				{
+					current_quest = current_quest->get_parent();
+				}
+			}
+		}
+		return quest_vec;
+	}
+
 }

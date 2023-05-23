@@ -19,6 +19,8 @@ void Map::make_map()
     create_moving_options();
     // Setting starting node
     current_node = nodes[1][1].get();
+    std::unique_ptr<Quest> some_quest = std::make_unique<Quest>("The_lost_ring_quest.txt");
+    nodes[1][2]->add_quest(std::move(some_quest));
 }
 
 void Map::make_nodes()
@@ -137,18 +139,47 @@ void Map::update()
     }
 }
 
-Node* Map::get_current_node()
+Node *Map::get_current_node()
 {
     return current_node;
 }
 
+// Update position mozna zrobic dla questa i nie questa w node jednej funkcji
 void Map::update_position(std::string move_option)
 {
-    current_node = current_node->next_node(move_option);
-    made_action = false;
+    if (!quest_status)
+    {
+        current_node->change_to_ready();
+        current_node->reset_current_options();
+        current_node = current_node->next_node(move_option);
+        made_action = false;
+    }
+    else
+    {
+        // Ta dwojka bedzie najmniej testowana
+        std::pair<int, Node *> p = current_node->update_quest_position(move_option);
+        if (p.first == 2)
+        {
+            current_node->change_to_ready();
+            current_node->reset_current_options();
+            current_node = p.second;
+            made_action = false;
+        }
+        if (p.first == 1)
+        {
+            made_action = false;
+            current_node->change_to_ready();
+            current_node->reset_current_options();
+        }
+        else
+        {
+            current_node->change_to_ready();
+            current_node->reset_current_options();
+            made_action = false;
+        }
+    }
 }
 
-void Map::handle_input(sf::Event& event, sf::RenderWindow& window, sf::Vector2f mousepos)
+void Map::handle_input(sf::Event &event, sf::RenderWindow &window, sf::Vector2f mousepos)
 {
-
-} 
+}

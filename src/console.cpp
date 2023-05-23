@@ -107,7 +107,7 @@ void Console::add_new_text(std::string new_text)
 			is_full = true;
 			for (int i = 0; i < substringcount; i++)
 			{
-				size_t target_pos = console_text.find('\n');
+				size_t target_pos = console_text.find("\n");
 				std::string new_line = console_text.substr(0, target_pos + 1);
 				console_text.erase(0, target_pos + 1);
 				up_lines.push_back(new_line);

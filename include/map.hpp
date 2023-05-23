@@ -7,6 +7,7 @@
 #include "console.hpp"
 #include "option.hpp"
 #include <random>
+#include "quest.hpp"
 
 
 class Map: public interface_element
@@ -32,6 +33,7 @@ private:
     int rows = 5;
     int columns = 5;
     bool made_action = false;
+    bool quest_status = false; // This will inform if there is ongoing quest
 };
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef UTILS_HPP_
 #define UTILS_HPP_
 
+#include <vector>
 #include <unordered_map>
 #include <filesystem>
 #include <regex>
@@ -31,6 +32,7 @@ namespace my_utils
     std::string format_text(std::string text);
     std::queue<std::pair<std::string, std::string>> read_map(std::string name_of_the_file);
     std::string connect_strings_in_vector(std::vector<std::string> &vector_of_strings);
+    std::vector<std::unique_ptr<Quest_option>> extract_text_for_quest(std::string name_of_the_file); 
 }
 
 #endif
