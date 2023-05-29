@@ -7,16 +7,31 @@
 #include "player_input.hpp"
 #include "quest.hpp"
 
+enum class Game_status
+{
+    Start,
+    No_quests,
+    Pop_up_quest,
+    long_quest,
+    Doing_quest
+};
+
 struct basic_informations
 {
-    // Pointers to neccessary
+    // Neccessary objects
     Node* current_position;
-    // tu bedzie trzeba zrobic pointera do opcji
+    Quest main_quest;
+    Quest current_quest;
     Option current_option;
+
 
     // Option text
     std::string text_to_display;
-    std::set<std::string> possible_options; 
+    std::set<std::string> possible_options;
+
+    // Game neccessities
+    Game_status status = Game_status::Start;
+    double chance_of_spawning_quest = 0.1;
 };
 
 class Strategy

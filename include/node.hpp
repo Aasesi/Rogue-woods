@@ -19,7 +19,6 @@ protected:
     // Containers
     std::unordered_map<Face_direction, Node *> neighbors;
     std::vector<Option> basic_options;
-    std::vector<std::unique_ptr<Quest>> quests;
     std::set<std::string> current_options;
     std::pair<unsigned int, unsigned int> position;
 
@@ -27,14 +26,6 @@ protected:
     std::string name = "";
     std::string noteable_landmark;
     std::string Beginning_desription = "";
-
-    // Status values
-    bool action_done = false; // bolean value that informs if any action was done or if there was none possible here
-    bool doing_quest = false;
-    bool has_crossing = true;
-    bool has_river = false;
-    bool ready = true;
-
 public:
     // Constructors and destructors
     Node(){};
@@ -45,8 +36,8 @@ public:
     };
     ~Node(){};
 
-    void add_option(Option some_option);
-    virtual bool exists_direction(Face_direction dir)
+    void add_option(Option some_option); //
+    bool exists_direction(Face_direction dir) //
     {
         if (neighbors.count(dir) != 0)
         {
@@ -57,27 +48,16 @@ public:
             return false;
         }
     }
-    virtual Node *get_neighbour(Face_direction dir) { return neighbors[dir]; };
-    // Z tym mozna sprawdzac czy sa case sensitive itp
-    bool check_availibility(std::string &some_text);
-    virtual void add_neighbour(Node *neighb, Face_direction dir) { neighbors[dir] = neighb; };
-    virtual std::string get_landmark() { return noteable_landmark; };
-    virtual void assign_landmark(std::string landmark) { noteable_landmark = landmark; };
-    virtual std::pair<unsigned int, unsigned int> get_coordinates() { return position; };
-    virtual bool no_quests() { return quests.empty(); };
-    virtual void update(Console *console)
-    {
-    };
-    // This function is going to return which node is next for picked option
-    // Może da się to zrobić w check availibility funckcji by ustalic next noda i pozniej zwrocic
-    Node *next_node(std::string text);
-    std::string display_basic_options();
-    std::string display_quest_options(const std::vector<std::string>& vec);
-    void change_to_ready() { ready = true; };
-    bool get_status(){return doing_quest;};
-    Option get_option(std::string text);
-    std::string Display_begin_description(){return Beginning_desription;};
-    std::set<std::string> see_options();
+    Node *get_neighbour(Face_direction dir) { return neighbors[dir]; }; //
+    bool check_availibility(std::string &some_text); // Z tym mozna sprawdzac czy sa case sensitive itp
+    void add_neighbour(Node *neighb, Face_direction dir) { neighbors[dir] = neighb; }; //
+    std::string get_landmark() { return noteable_landmark; }; //
+    void assign_landmark(std::string landmark) { noteable_landmark = landmark; }; // Can be useful in the future to make some shenanigans to the map
+    std::pair<unsigned int, unsigned int> get_coordinates() { return position; }; //
+    Node *next_node(std::string text); //
+    Option get_option(std::string text); //
+    std::string Display_begin_description(){return Beginning_desription;}; //
+    std::set<std::string> see_options(); //
 };
 
 #endif

@@ -22,9 +22,7 @@ public:
     void push_option(std::unique_ptr<Quest_option> some_option);
 
     // Game functions
-    std::vector<std::string> Start(Console* console);
-    std::pair<int, Node*> update(std::string text);
-
+    
 };
 
 #endif

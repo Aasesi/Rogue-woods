@@ -1,11 +1,11 @@
 #include "map.hpp"
 
-Map::Map(std::string path, sf::Vector2f position, int size, Console *console_ptr)
+Map::Map(std::string path, sf::Vector2f position, int size)
 {
     this->interface_texture.loadFromFile(path);
     this->interface_sprite.setTexture(interface_texture);
     this->interface_sprite.setPosition(position);
-    console = console_ptr;
+    size_of_map = size;
     make_map();
 }
 
@@ -17,8 +17,6 @@ void Map::make_map()
     connect_in_grid();
     // Create basic options
     create_moving_options();
-    // Setting starting node
-    current_node = nodes[1][1].get();
 }
 
 void Map::make_nodes()
@@ -78,7 +76,7 @@ void Map::make_connection(Node *first, Node *second, Face_direction dir)
     first->add_neighbour(second, dir);
 }
 
-// Mozliwe ze mozna zamienic opcje na unique ptr moze idk
+// Mozliwe ze mozna zamienic opcje na unique ptr moze idk zeby oszczedzic pamiec !!!
 void Map::create_moving_options()
 {
     std::unordered_map<std::string, std::vector<std::string>> keywords = my_utils::read_from_file("keywords.txt");
@@ -130,21 +128,13 @@ Option Map::make_option_for_ptr(Node *text_for_ptr, std::unordered_map<std::stri
 
 void Map::update()
 {
-
-}
-
-Node *Map::get_current_node()
-{
-    return current_node;
-}
-
-// Update position mozna zrobic dla questa i nie questa w node jednej funkcji
-void Map::update_position(std::string move_option)
-{
-    
-    
 }
 
 void Map::handle_input(sf::Event &event, sf::RenderWindow &window, sf::Vector2f mousepos)
 {
+}
+
+Node *Map::get_node(int row, int column)
+{
+    return nodes[row][column].get();
 }

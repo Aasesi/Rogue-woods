@@ -10,6 +10,8 @@
 #include "default_strategy.hpp"
 #include "quest_menu.hpp"
 
+
+
 class Game_state : public State
 {
 private:
@@ -21,7 +23,6 @@ private:
 public:
     Game_state(const std::string path);
     void update() override;
-    std::string consolidate_text();
 };
 
 #endif

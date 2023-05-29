@@ -8,12 +8,10 @@ Game_state::Game_state(const std::string path)
     // Tymczasowo mapa jest tak
     std::unique_ptr<Console> con = std::make_unique<Console>(console_image, sf::Vector2f(1300.f, 200.f));
     c = con.get();
-    std::unique_ptr<Map> mapa = std::make_unique<Map>(console_image, sf::Vector2f(10.f, 10.f), 25, con.get());
+    std::unique_ptr<Map> mapa = std::make_unique<Map>(console_image, sf::Vector2f(10.f, 10.f), 25);
     std::unique_ptr<Player_input> p_i = std::make_unique<Player_input>(input_button_image, sf::Vector2f(1320.f, 1150.f), con.get());
     game_info = std::make_unique<basic_informations>();
-    game_info->current_position = mapa->get_current_node();
-    game_info.get()->text_to_display = game_info->current_position->Display_begin_description();
-    game_info.get()->possible_options = game_info->current_position->see_options();
+    game_info->current_position = mapa->get_node(1, 1);
     pl_in = p_i.get();
     add_interface_element(std::move(mapa));
     add_interface_element(std::move(con));
@@ -29,31 +27,27 @@ void Game_state::update()
     }
     if (pl_in->check_made_action())
     {
-        switch (quest_menu_->get_status())
+        switch (game_info->status)
         {
         case Game_status::No_quests:
+            // Execute strategy
             strategy = std::make_unique<Default_strategy>();
             strategy->process_information(pl_in->retrive_picked_option(), game_info.get());
+
+            // Add text onto the screen
             c->add_new_text(game_info->text_to_display);
-            c->add_new_text(consolidate_text());
+
+            // Update set of possible options for player input
             pl_in->update_options(game_info->possible_options);
             break;
 
         default:
+            game_info.get()->text_to_display = game_info->current_position->Display_begin_description();
+            game_info.get()->possible_options = game_info->current_position->see_options();
             pl_in->update_options(game_info->possible_options);
             c->add_new_text(game_info->text_to_display);
-            c->add_new_text(consolidate_text());
+            // c->add_new_text(consolidate_text());
             break;
         }
     }
-}
-
-std::string Game_state::consolidate_text()
-{
-    std::string whole_string;
-    for(const auto& opt: game_info->possible_options)
-    {
-        whole_string += "<" + opt + ">\n";
-    }
-    return whole_string;
 }
