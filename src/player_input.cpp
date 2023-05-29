@@ -1,13 +1,12 @@
 #include "player_input.hpp"
 
 // Tu może być coś źle z ptr
-Player_input::Player_input(std::string path, sf::Vector2f position, Console*console_ptr, Map* map_ptr)
+Player_input::Player_input(std::string path, sf::Vector2f position, Console *console_ptr)
 {
     this->interface_texture.loadFromFile(path);
     this->interface_sprite.setTexture(interface_texture);
     this->interface_sprite.setPosition(position);
     console = console_ptr;
-    map = map_ptr;
     if (!_font.loadFromFile(font_path))
     {
     }
@@ -29,21 +28,22 @@ void Player_input::update()
     // When player pressed enter
     else if (sending_message)
     {
-        if(check_option_availibility(input_text))
+        if (check_option_availibility(input_text))
         {
-            map->update_position(input_text);
-            input_text = "\n<After contemplating you decided to: " + input_text + ">" + "\n\n";
+            picked_option = input_text;
+            input_text = "\n<After contemplating you decided to: " + input_text + ">" + "\n";
             _text.setString(default_string);
-			console->add_new_text(input_text);
-			input_text.erase();
-			sending_message = false;
+            console->add_new_text(input_text);
+            input_text.erase();
+            sending_message = false;
+            made_action = true;
         }
         else
         {
             _text.setString(default_string);
-			console->add_new_text("\nIncorrect decision\n");
-			input_text.erase();
-			sending_message = false;
+            console->add_new_text("\nIncorrect decision\n");
+            input_text.erase();
+            sending_message = false;
         }
     }
 }
@@ -82,7 +82,27 @@ void Player_input::render(sf::RenderWindow &window)
     window.draw(this->_text);
 }
 
-bool Player_input::check_option_availibility(std::string& text)
+bool Player_input::check_option_availibility(std::string &text)
 {
-    return map->get_current_node()->check_availibility(text);
+    for (auto &str : options)
+    {
+        if (text == str)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+// There can be problems with this
+std::string Player_input::retrive_picked_option()
+{
+    return picked_option;
+}
+
+bool Player_input::check_made_action()
+{
+    bool flag = made_action;
+    made_action = false;
+    return flag;
 }

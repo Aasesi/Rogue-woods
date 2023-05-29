@@ -26,12 +26,17 @@ public:
     Node* get_current_node();
     
 private:
+    // Nodes
     std::vector<std::vector<std::unique_ptr<Node>>> nodes;
     Console *console;
     Node* current_node;
+
+    // Map configuration
+    std::pair<int, int> starting_node_coordinates;
     int size_of_map = 630; // 35x8 tyle ma być, ale zaczne od 10 x 10
     int rows = 5;
     int columns = 5;
+
     bool made_action = false;
     bool quest_status = false; // This will inform if there is ongoing quest
 };

@@ -21,18 +21,12 @@ bool Node::check_availibility(std::string &some_text)
 
 Node *Node::next_node(std::string text)
 {
-    if (!doing_quest)
+    for (auto &option : basic_options)
     {
-        for (auto &option : basic_options)
+        if (text == option.ret_dir())
         {
-            if (text == option.ret_dir())
-            {
-                return option.get_next_node();
-            }
+            return option.get_next_node();
         }
-    }
-    else
-    {
     }
     return nullptr;
 }
@@ -51,11 +45,6 @@ std::string Node::display_basic_options()
     return entire_text;
 }
 
-void Node::reset_current_options()
-{
-    current_options.clear();
-}
-
 std::string Node::display_quest_options(const std::vector<std::string> &vec)
 {
     std::string entire_text = "\n*After resting it is time to decide where to go*\n";
@@ -66,26 +55,27 @@ std::string Node::display_quest_options(const std::vector<std::string> &vec)
     }
     return entire_text;
 }
-std::pair<int, Node*> Node::update_quest_position(std::string text)
+
+// ważne moglbym zrobic pare basic options i po prostu dodawac pointera z map ktora by miala vectora z unique pointerami do opcji !!!
+Option Node::get_option(std::string text)
 {
-    std::pair<int, Node*> option_choice = quests.back()->update(text);
-    if (option_choice.first == 2)
+    Option some_option;
+    for (auto &option : basic_options)
     {
-        doing_quest = false;
-        quests.pop_back();
-        return option_choice;
+        if (text == option.ret_dir())
+        {
+            return option;
+        }
     }
-    else if (option_choice.first == 1)
+    return some_option;
+}
+
+std::set<std::string> Node::see_options()
+{
+    std::set<std::string> to_return;
+    for (auto &option : basic_options)
     {
-        return option_choice;
+        to_return.insert(option.ret_dir());
     }
-    else
-    {
-        // Wazne nie zmieniaj pzycji w ostatniej opcji bo moga byc problemy
-        doing_quest = false;
-        action_done = true;
-        quests.pop_back();
-        return option_choice;
-    }
-    
+    return to_return;
 }

@@ -65,36 +65,8 @@ public:
     virtual void assign_landmark(std::string landmark) { noteable_landmark = landmark; };
     virtual std::pair<unsigned int, unsigned int> get_coordinates() { return position; };
     virtual bool no_quests() { return quests.empty(); };
-    void reset_current_options();
-    virtual void add_quest(std::unique_ptr<Quest> some_quest) { quests.push_back(std::move(some_quest)); };
     virtual void update(Console *console)
     {
-        if (ready)
-        {
-            ready = false;
-            // Tu moga byc problemy ze statusami ogarnij to na kartce jakos by zoptymalizowac bo moze byc noquest and action done at the same time
-            if (action_done)
-            {
-                console->add_new_text(display_basic_options());
-                action_done = false;
-            }
-            else if (no_quests())
-            {
-                console->add_new_text(Beginning_desription);
-                console->add_new_text(display_basic_options());
-            }
-            else if(!no_quests() && !doing_quest)
-            {
-                doing_quest = true;
-                std::vector<std::string> vec = quests.back()->Start(console);
-                console->add_new_text(display_quest_options(vec));
-
-            }
-            else if (doing_quest)
-            {
-                // Zwroc uwage na jesli vec bedzie empty jak bedziesz bral
-            }
-        }
     };
     // This function is going to return which node is next for picked option
     // Może da się to zrobić w check availibility funckcji by ustalic next noda i pozniej zwrocic
@@ -103,7 +75,9 @@ public:
     std::string display_quest_options(const std::vector<std::string>& vec);
     void change_to_ready() { ready = true; };
     bool get_status(){return doing_quest;};
-    std::pair<int, Node*> update_quest_position(std::string text);
+    Option get_option(std::string text);
+    std::string Display_begin_description(){return Beginning_desription;};
+    std::set<std::string> see_options();
 };
 
 #endif

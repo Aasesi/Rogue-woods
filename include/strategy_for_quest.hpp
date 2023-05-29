@@ -1,0 +1,7 @@
+#ifndef STRATEGY_FOR_QUEST_HPP_
+#define STRATEGY_FOR_QUEST_HPP_
+
+
+
+
+#endif
