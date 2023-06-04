@@ -3,7 +3,6 @@
 
 #include "interface_element.hpp"
 #include <vector>
-#include "quest.hpp"
 
 
 class Quest_menu

@@ -27,7 +27,7 @@ Quest_option::~Quest_option()
 
 void Quest_option::add_sub_option(Quest_option *some_option)
 {
-    sub_options.push_back(some_option);
+    sub_options.insert(some_option);
 }
 
 void Quest_option::assign_description(std::string text)
@@ -52,12 +52,12 @@ Quest_option *Quest_option::get_parent()
     return parent_node;
 }
 
-std::vector<std::string> Quest_option::get_possible_options()
+std::set<std::string> Quest_option::get_possible_options()
 {
-    std::vector<std::string> to_return;
+    std::set<std::string> to_return;
     for (auto &sub_opt : sub_options)
     {
-        to_return.push_back(sub_opt->ret_dir());
+        to_return.insert(sub_opt->ret_dir());
     }
     return to_return;
 }
@@ -76,5 +76,5 @@ Quest_option *Quest_option::get_next_option(std::string some_text)
 
 bool Quest_option::is_ending()
 {
-    return sub_options.empty() ? true : false;
+    return sub_options.empty();
 }

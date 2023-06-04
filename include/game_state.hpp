@@ -9,6 +9,7 @@
 #include "strategy.hpp"
 #include "default_strategy.hpp"
 #include "quest_menu.hpp"
+#include <strategy_for_quest.hpp>
 
 
 

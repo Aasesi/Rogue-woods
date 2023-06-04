@@ -20,9 +20,8 @@ struct basic_informations
 {
     // Neccessary objects
     Node* current_position;
-    Quest main_quest;
-    Quest current_quest;
-    Option current_option;
+    std::unique_ptr<Quest> main_quest = nullptr;
+    std::unique_ptr<Quest> current_quest = nullptr;
 
 
     // Option text
@@ -31,7 +30,7 @@ struct basic_informations
 
     // Game neccessities
     Game_status status = Game_status::Start;
-    double chance_of_spawning_quest = 0.1;
+    double chance_of_spawning_quest = 0.8;
 };
 
 class Strategy
@@ -44,6 +43,7 @@ public:
     ~Strategy(){};
 
     virtual void process_information(std::string picked_option, basic_informations* informations) = 0;
+    std::string get_options(std::set<std::string> opts);
 
     //virtual void map_movement() = 0;
     //virtual std::vector<std::string> current_option_update() = 0;

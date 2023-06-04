@@ -40,13 +40,23 @@ void Game_state::update()
             // Update set of possible options for player input
             pl_in->update_options(game_info->possible_options);
             break;
+        case Game_status::Pop_up_quest:
+            strategy = std::make_unique<Quest_strategy>();
+            strategy->process_information(pl_in->retrive_picked_option(), game_info.get());
 
+            c->add_new_text(game_info->text_to_display);
+            pl_in->update_options(game_info->possible_options);
+            break;
         default:
-            game_info.get()->text_to_display = game_info->current_position->Display_begin_description();
             game_info.get()->possible_options = game_info->current_position->see_options();
             pl_in->update_options(game_info->possible_options);
-            c->add_new_text(game_info->text_to_display);
-            // c->add_new_text(consolidate_text());
+            std::string whole_string;
+            for (const auto &opt : game_info->possible_options)
+            {
+                whole_string += "<" + opt + ">\n";
+            }
+            c->add_new_text( whole_string);
+            game_info->status = Game_status::No_quests;
             break;
         }
     }

@@ -74,6 +74,7 @@ namespace my_utils
 				text_len -= 60;
 			}
 		}
+		text+="\n";
 		return text;
 	}
 	std::queue<std::pair<std::string, std::string>> read_map(std::string name_of_the_file)

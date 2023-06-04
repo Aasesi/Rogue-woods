@@ -3,12 +3,13 @@
 
 #include "option.hpp"
 #include <vector>
+#include <set>
 
 class Quest_option : public Option
 {
 private:
     Quest_option *parent_node;
-    std::vector<Quest_option *> sub_options;
+    std::set<Quest_option *> sub_options;
     bool empty = true;
 public:
     Quest_option();
@@ -26,7 +27,7 @@ public:
 
     // Get functions
     Quest_option *get_parent();
-    std::vector<std::string> get_possible_options();
+    std::set<std::string> get_possible_options();
     Quest_option* get_next_option(std::string some_text);
 };
 
