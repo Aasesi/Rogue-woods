@@ -6,6 +6,7 @@
 #include "map.hpp"
 #include "player_input.hpp"
 #include "quest.hpp"
+#include <player.hpp>
 
 enum class Game_status
 {
@@ -30,7 +31,11 @@ struct basic_informations
 
     // Game neccessities
     Game_status status = Game_status::Start;
-    double chance_of_spawning_quest = 0.8;
+    double chance_of_spawning_quest = 0.2;
+
+    // Player
+    std::unique_ptr<Player> player = nullptr;
+    
 };
 
 class Strategy

@@ -12,8 +12,8 @@ Console::Console(std::string path, sf::Vector2f position)
 	_text.setFont(_font);
 	_text.setCharacterSize(16);
 	_text.setString("hELLO");
-	_text.setPosition(sf::Vector2f(1350.f, 250.f));
-	_text.setFillColor(sf::Color::Black);
+	_text.setPosition(sf::Vector2f(460.f, 150.f));
+	_text.setFillColor(sf::Color::White);
 
 	dir = None;
 }

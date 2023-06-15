@@ -5,18 +5,39 @@ Game_state::Game_state(const std::string path)
     this->background_texture.loadFromFile(path);
     this->background_sprite.setTexture(background_texture);
     this->background_sprite.setPosition(sf::Vector2f(0, 0));
-    // Tymczasowo mapa jest tak
-    std::unique_ptr<Console> con = std::make_unique<Console>(console_image, sf::Vector2f(1300.f, 200.f));
+
+    // Console
+    std::unique_ptr<Console> con = std::make_unique<Console>(console_image, sf::Vector2f(442.f, 134.f));
     c = con.get();
-    std::unique_ptr<Map> mapa = std::make_unique<Map>(console_image, sf::Vector2f(10.f, 10.f), 25);
-    std::unique_ptr<Player_input> p_i = std::make_unique<Player_input>(input_button_image, sf::Vector2f(1320.f, 1150.f), con.get());
-    game_info = std::make_unique<basic_informations>();
-    game_info->current_position = mapa->get_node(1, 1);
+
+    // Map
+    std::unique_ptr<Map> mapa = std::make_unique<Map>(map_image, sf::Vector2f(1400.f, 132.f), 25);
+    mapa_ = mapa.get();
+
+    // Player input box
+    std::unique_ptr<Player_input> p_i = std::make_unique<Player_input>(input_button_image, sf::Vector2f(442.f, 1064.f), con.get());
     pl_in = p_i.get();
+
+    // Game information
+    game_info = std::make_unique<basic_informations>();
+    game_info->current_position = mapa->get_node(0, 0);
+    game_info->player = std::make_unique<Player>("Your name", "Human", "Adventurer");
+
+    // Niedokończone
+    std::unique_ptr<Statistics_window> S_W = std::make_unique<Statistics_window>(stat_window_image, sf::Vector2f(17.f, 77.f), "Your name",
+                                                                                 "Human", game_info->player->get_stats());
+    stats_window = S_W.get();
+
+    // Map information window
+    std::unique_ptr<Map_stats> m_s = std::make_unique<Map_stats>(mapstatswindow, sf::Vector2f(1416.f, 838.f), game_info->current_position->information_to_return());
+    map_stats = m_s.get();
+
+    // Adding interface elements
+    add_interface_element(std::move(S_W));
     add_interface_element(std::move(mapa));
     add_interface_element(std::move(con));
     add_interface_element(std::move(p_i));
-    quest_menu_ = std::make_unique<Quest_menu>();
+    add_interface_element(std::move(m_s));
 }
 
 void Game_state::update()
@@ -55,9 +76,13 @@ void Game_state::update()
             {
                 whole_string += "<" + opt + ">\n";
             }
-            c->add_new_text( whole_string);
+            c->add_new_text(whole_string);
             game_info->status = Game_status::No_quests;
             break;
         }
+        // Map
+        std::pair<unsigned int, unsigned int> coords = game_info->current_position->get_coordinates();
+        mapa_->change_coordinates(coords.first, coords.second);
+        map_stats->new_entire_info(game_info->current_position->information_to_return());
     }
 }

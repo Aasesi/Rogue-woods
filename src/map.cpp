@@ -5,7 +5,19 @@ Map::Map(std::string path, sf::Vector2f position, int size)
     this->interface_texture.loadFromFile(path);
     this->interface_sprite.setTexture(interface_texture);
     this->interface_sprite.setPosition(position);
+
     size_of_map = size;
+    interface_texture2.loadFromFile(map_im);
+    interface_sprite2.setTexture(interface_texture2);
+    interface_sprite2.setPosition(position);
+    interface_sprite2.setTextureRect(sf::IntRect(0, 0, 784, 636));
+
+    point_texture.loadFromFile(point_on_map);
+    point_sprite.setTexture(point_texture);
+    point_sprite.setPosition(sf::Vector2f(position.x, position.y));
+    
+    coordinates = std::make_pair(position.x, position.y);
+
     make_map();
 }
 
@@ -31,7 +43,7 @@ void Map::make_nodes()
             // Typ terenu
             std::string d = my_utils::connect_strings_in_vector(descript[node_info.front().second]);
             // To drugie z node_info to chyba nazwa miala być lecz moge się mylić
-            new_nodes.emplace_back(std::make_unique<Node>(d, node_info.front().second));
+            new_nodes.emplace_back(std::make_unique<Node>(d, node_info.front().second, "Region not decided yet", "", i, j));
             node_info.pop();
         }
         nodes.push_back(std::move(new_nodes));
@@ -137,4 +149,20 @@ void Map::handle_input(sf::Event &event, sf::RenderWindow &window, sf::Vector2f 
 Node *Map::get_node(int row, int column)
 {
     return nodes[row][column].get();
+}
+
+void Map::render(sf::RenderWindow &window)
+{
+    window.draw(this->interface_sprite);
+    window.draw(this->interface_sprite2);
+    window.draw(this->point_sprite);
+}
+
+
+void Map::change_coordinates(unsigned int x, unsigned int y)
+{
+
+    float a = 43.f * static_cast<float>(y);
+    float b = 43.f * static_cast<float>(x);
+    point_sprite.setPosition(sf::Vector2f(coordinates.first + a, coordinates.second + b));
 }

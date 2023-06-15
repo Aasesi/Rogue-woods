@@ -11,10 +11,10 @@ Player_input::Player_input(std::string path, sf::Vector2f position, Console *con
     {
     }
     _text.setFont(_font);
-    _text.setCharacterSize(20);
+    _text.setCharacterSize(24);
     _text.setString(default_string);
-    _text.setPosition(sf::Vector2f(1370.f, 1190.f));
-    _text.setFillColor(sf::Color::Black);
+    _text.setPosition(sf::Vector2f(475.f, 1100.f));
+    _text.setFillColor(sf::Color::White);
 }
 
 // Moge dodac gdy ESC zeby wyjsc

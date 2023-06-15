@@ -58,12 +58,67 @@ twisted and gnarled with age. You can feel the energy
 of the tree and the wisdom that seems to emanate from it.
 You decide to:
 )
-
 River (
 You hear the unmistakable sound of rushing water
 in the distance, and you know that a river must be
 nearby. Even from this distance, you can feel the
 coolness of the water in the air and smell the fresh,
 earthy scent of the riverbanks.
+You decide to:
+)
+Mountain (
+You explore Mountain
+You decide to:
+)
+Camp (
+You see camp
+You decide to:
+)
+Hill (
+Hike
+You decide to:
+)
+Wildhorse (
+You spot wildhorses
+You decide to:
+)
+Danger (
+You see something dangerous
+You decide to:
+)
+Steppe (
+Go through grass
+You decide to:
+)
+Grassland (
+Walk
+You decide to:
+)
+Farm (
+Walk through the crops
+You decide to:
+)
+Shop (
+You spot a merchant
+You decide to:
+)
+Archery (
+You see group of archers
+You decide to:
+)
+Tower (
+You see tower
+You decide to:
+)
+Shore (
+You walk through sand
+You decide to:
+)
+Water (
+You cant walk on water
+You decide to:
+)
+House (
+You see a house
 You decide to:
 )

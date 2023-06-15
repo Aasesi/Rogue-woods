@@ -12,7 +12,6 @@
 #include "quest.hpp"
 #include "option.hpp"
 
-
 class Node
 {
 protected:
@@ -26,6 +25,8 @@ protected:
     std::string name = "";
     std::string noteable_landmark;
     std::string Beginning_desription = "";
+    std::string Region = "Not decided";
+
 public:
     // Constructors and destructors
     Node(){};
@@ -34,9 +35,10 @@ public:
         Beginning_desription = descript;
         noteable_landmark = landmark;
     };
+    Node(std::string descript, std::string landmark, std::string region, std::string name_, int x, int y);
     ~Node(){};
 
-    void add_option(Option some_option); //
+    void add_option(Option some_option);      //
     bool exists_direction(Face_direction dir) //
     {
         if (neighbors.count(dir) != 0)
@@ -48,16 +50,20 @@ public:
             return false;
         }
     }
-    Node *get_neighbour(Face_direction dir) { return neighbors[dir]; }; //
-    bool check_availibility(std::string &some_text); // Z tym mozna sprawdzac czy sa case sensitive itp
+    Node *get_neighbour(Face_direction dir) { return neighbors[dir]; };                //
+    bool check_availibility(std::string &some_text);                                   // Z tym mozna sprawdzac czy sa case sensitive itp
     void add_neighbour(Node *neighb, Face_direction dir) { neighbors[dir] = neighb; }; //
-    std::string get_landmark() { return noteable_landmark; }; //
-    void assign_landmark(std::string landmark) { noteable_landmark = landmark; }; // Can be useful in the future to make some shenanigans to the map
-    std::pair<unsigned int, unsigned int> get_coordinates() { return position; }; //
-    Node *next_node(std::string text); //
-    Option get_option(std::string text); //
-    std::string Display_begin_description(){return Beginning_desription;}; //
-    std::set<std::string> see_options(); //
+    std::string get_landmark() { return noteable_landmark; };                          //
+    void assign_landmark(std::string landmark) { noteable_landmark = landmark; };      // Can be useful in the future to make some shenanigans to the map
+    std::pair<unsigned int, unsigned int> get_coordinates() { return position; };      //
+    Node *next_node(std::string text);                                                 //
+    Option get_option(std::string text);                                               //
+    std::string Display_begin_description() { return Beginning_desription; };          //
+    std::set<std::string> see_options();                                               //
+    std::map<std::string, std::string> information_to_return();
+
+
+    bool operator==(const Node &other);
 };
 
 #endif

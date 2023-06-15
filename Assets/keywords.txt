@@ -27,9 +27,48 @@ Cave (
 Explore the Cave
 Follow the scent of a nearby campfire
 )
-Start (
-You do not feel like going back there
+Camp (
+You see camp
 )
 River (
 Nothing
+)
+Mountain (
+Hike
+)
+Hill (
+Hike
+)
+Wildhorse (
+You spot wildhorses
+)
+Danger (
+You see something dangerous
+)
+Steppe (
+Go through grass
+)
+Grassland (
+Walk
+)
+Farm (
+Walk through the crops
+)
+Shop (
+You spot a merchant
+)
+Archery (
+You see group of archers
+)
+Tower (
+You see tower
+)
+Shore (
+You walk through sand
+)
+Water (
+You cant walk on water
+)
+House (
+You see a house
 )

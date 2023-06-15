@@ -23,15 +23,25 @@ public:
     void handle_input(sf::Event& event, sf::RenderWindow& window, sf::Vector2f mousepos) override; //
     void update() override; //
     Node* get_node(int row, int column); //
+    void render(sf::RenderWindow& window) override;
+    void change_coordinates(unsigned int x, unsigned int y);
     
 private:
     // Nodes
     std::vector<std::vector<std::unique_ptr<Node>>> nodes;
 
+    sf::Texture interface_texture2;
+    sf::Sprite interface_sprite2;
+
     // Map configuration
     int size_of_map = 630; // 35x8 tyle ma być, ale zaczne od 10 x 10
-    int rows = 5;
-    int columns = 5;
+    int rows = 6;
+    int columns = 17;
+
+    // Location on map
+    sf::Texture point_texture;
+    sf::Sprite point_sprite;
+    std::pair<float, float> coordinates;
 };
 
 #endif
