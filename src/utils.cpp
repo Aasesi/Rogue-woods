@@ -137,6 +137,10 @@ namespace my_utils
 		std::regex name_pattern("\"name\":\\s*\"([^\"]+)\"");
 		std::regex text_pattern("\"text\": \"([^\"]+)\"");
 		std::regex option_pattern("\"sub_options\": \\[");
+		std::regex exp_reward_pattern("\"exp_reward\":\\s*\"([^\"]+)\"");
+		std::regex item_reward("\"item_reward\":\\s*\"([^\"]+)\"\\s*\"([^\"]+)\"\\s*\"([^\"]+)\"");
+		std::regex gold_reward("\"gold_reward\":\\s*\"([^\"]+)\"");
+		std::regex fight_exists_pattern("\"fight\":\\s*\"([^\"]+)\"");
 
 		Quest_option *current_quest = nullptr;
 
@@ -173,6 +177,24 @@ namespace my_utils
 			else if (std::regex_search(line, match, option_pattern))
 			{
 				continue;
+			}
+			else if (std::regex_search(line, match, exp_reward_pattern))
+			{
+				current_quest->assign_exp_reward(std::stoi(match[1]));
+			}
+			else if (std::regex_search(line, match, item_reward))
+			{
+				current_quest->add_item_keyword(match[1]);
+				current_quest->add_item_keyword(match[2]);
+				current_quest->add_item_keyword(match[3]);
+			}
+			else if(std::regex_search(line, match, gold_reward))
+			{
+				current_quest->assign_gold_reward(std::stoi(match[1]));
+			}
+			else if(std::regex_search(line, match, fight_exists_pattern))
+			{
+				current_quest->change_into_fight();
 			}
 			else if (line == "}")
 			{

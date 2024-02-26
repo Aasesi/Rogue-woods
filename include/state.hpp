@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
+#include <thread>
+#include <ranges>
 
 class State
 {
@@ -20,25 +22,35 @@ public:
 	~State(){};
 	virtual void update()
 	{
+		std::vector<std::thread> threads;
 		for (auto &ptr : interface_elements)
 		{
-			ptr.get()->update();
+			threads.emplace_back([&ptr]()
+								 { ptr->update(); });
 		}
+
+		std::for_each(threads.begin(), threads.end(), [](std::thread &t)
+					  { t.join(); });
 	};
 	virtual void render(sf::RenderWindow &window)
 	{
 		window.draw(this->background_sprite);
-		for (auto &ptr : interface_elements)
-		{
-			ptr.get()->render(window);
-		}
+
+		std::ranges::for_each(interface_elements, [&window](auto &ptr)
+							  { ptr->render(window); });
 	};
 	virtual void handleinput(sf::Event &event, sf::RenderWindow &window, sf::Vector2f mousepos)
 	{
+
+		std::vector<std::thread> threads;
 		for (auto &ptr : interface_elements)
 		{
-			ptr.get()->handle_input(event, window, mousepos);
+			threads.emplace_back([&ptr, &event, &window, &mousepos]()
+								 { ptr->handle_input(event, window, mousepos); });
 		}
+
+		std::for_each(threads.begin(), threads.end(), [](std::thread &t)
+					  { t.join(); });
 	};
 	void setManager(std::shared_ptr<State_manager> manager)
 	{

@@ -12,7 +12,8 @@
 #include <strategy_for_quest.hpp>
 #include <Statisticswindow.hpp>
 #include <mapstats.hpp>
-
+#include <game_system.hpp>
+#include <Fight_state.hpp>
 
 class Game_state : public State
 {
@@ -25,9 +26,12 @@ private:
     Map* mapa_;
     std::unique_ptr<basic_informations> game_info;
     std::unique_ptr<Quest_menu> quest_menu_;
+    std::unique_ptr<Game_system> game_sys;
 public:
     Game_state(const std::string path);
     void update() override;
+    void interface_update();
+    void start_function();
 };
 
 #endif

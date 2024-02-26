@@ -17,6 +17,11 @@ void State_manager::push(std::unique_ptr<State> state)
 	states.push(std::move(state));
 }
 
+void State_manager::push_state_to_be_added()
+{
+	states.push(std::move(state_to_be_added));
+}
+
 void State_manager::initialize()
 {
 	std::unique_ptr<State> menu = std::make_unique<State>(main_menu_path);
@@ -43,6 +48,16 @@ void State_manager::handleinput(sf::Event& event, sf::RenderWindow& window, sf::
 void State_manager::render(sf::RenderWindow& window)
 {
 	states.top()->render(window);
+	if(pop_state)
+	{
+		pop();
+		pop_state = false;
+	}
+	if(push_state)
+	{
+		push_state_to_be_added();
+		push_state = false;
+	}
 }
 
 void State_manager::update()
@@ -50,3 +65,7 @@ void State_manager::update()
 	states.top()->update();
 }
 
+void State_manager::set_state_to_be_added(std::unique_ptr<State> some_state)
+{
+	state_to_be_added = std::move(some_state);
+}

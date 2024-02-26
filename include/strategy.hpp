@@ -7,15 +7,8 @@
 #include "player_input.hpp"
 #include "quest.hpp"
 #include <player.hpp>
+#include <game_system.hpp>
 
-enum class Game_status
-{
-    Start,
-    No_quests,
-    Pop_up_quest,
-    long_quest,
-    Doing_quest
-};
 
 struct basic_informations
 {
@@ -31,29 +24,24 @@ struct basic_informations
 
     // Game neccessities
     Game_status status = Game_status::Start;
-    double chance_of_spawning_quest = 0.2;
+    double chance_of_spawning_quest = 0.8;
 
     // Player
     std::unique_ptr<Player> player = nullptr;
-    
 };
 
 class Strategy
 {
 protected:
-std::vector<std::string> string_of_options; // used for easy check of options może zrobić z tego funkcje
+std::vector<std::string> string_of_options; 
 Node* changed_node;
 public:
     Strategy(){};
     ~Strategy(){};
 
     virtual void process_information(std::string picked_option, basic_informations* informations) = 0;
+    virtual void process_information(Game_system* game_sys, std::string picked_option) = 0;
     std::string get_options(std::set<std::string> opts);
-
-    //virtual void map_movement() = 0;
-    //virtual std::vector<std::string> current_option_update() = 0;
-    //virtual void send_info_to_input(Player_input* player_in) = 0;
-    //bool change_strategy();
 };
 
 

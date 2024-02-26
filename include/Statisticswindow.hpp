@@ -10,15 +10,15 @@ class Statistics_window : public interface_element
 {
 public:
     Statistics_window(std::string path, sf::Vector2f position, std::string name, std::string species, statistics stats);
+    Statistics_window(std::string path, sf::Vector2f position, std::unordered_map<std::string, std::string> info_collection, statistics stats);
     void handle_input(sf::Event &event, sf::RenderWindow &window, sf::Vector2f mousepos) override;
     void update() override;
     void render(sf::RenderWindow &window) override;
     void update_stats(statistics stats);
     void update_species(std::string species);
     void update_name(std::string name);
-
 private:
-    std::unordered_map<std::string, std::string> text_to_display = {{"vitality", ""}, {"charisma", ""}, {"dexterity", ""}, {"strength", ""}, {"inteligence", ""}, {"mana", ""}, {"hp", ""}, {"name", ""}, {"species", ""}};
+    std::unordered_map<std::string, std::string> text_to_display = {{"vitality", ""}, {"charisma", ""}, {"dexterity", ""}, {"strength", ""}, {"inteligence", ""}, {"mana", ""}, {"hp", ""}, {"experience", ""}, {"level", ""}, {"gold", ""}, {"name", ""}, {"species", ""}, {"fight class", ""}};
     std::string entire_string = "";
     sf::Text _text;
     sf::Font _font;

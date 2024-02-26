@@ -96,7 +96,6 @@ void Console::add_new_text(std::string new_text)
 	if (!new_text.empty())
 	{
 		const std::string character = "\n";
-		// I used lambda but remember if you wanted make it better instead of char c use string because right now it just searches for the '\'
 		int substringcount = std::count_if(new_text.begin(), new_text.end(), [character](char c)
 										   { return c == character[0]; });
 		curr_lines += substringcount;

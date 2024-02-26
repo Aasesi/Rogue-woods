@@ -21,9 +21,7 @@ Quest_option::~Quest_option()
 {
 }
 
-/**
- * Assigning text
- */
+
 
 void Quest_option::add_sub_option(Quest_option *some_option)
 {

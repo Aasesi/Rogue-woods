@@ -40,7 +40,7 @@ Node *Node::next_node(std::string text)
     return nullptr;
 }
 
-// ważne moglbym zrobic pare basic options i po prostu dodawac pointera z map ktora by miala vectora z unique pointerami do opcji !!!
+
 Option Node::get_option(std::string text)
 {
     Option some_option;

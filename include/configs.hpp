@@ -17,5 +17,10 @@ const std::string map_im = "C:/Projects/The Rogue's Woods/Assets/mapfinalversion
 const std::string stat_window_image = "C:/Projects/The Rogue's Woods/Assets/playerstats.png";
 const std::string point_on_map = "C:/Projects/The Rogue's Woods/Assets/adventurer.png";
 const std::string mapstatswindow = "C:/Projects/The Rogue's Woods/Assets/mapstats.png";
+const std::string goblin_image = "C:/Projects/The Rogue's Woods/Assets/goblin.png";
+const std::string enemy_statss = "C:/Projects/The Rogue's Woods/Assets/enemystats.png";
+const std::string attack_button = "C:/Projects/The Rogue's Woods/Assets/attackbutton.png";
+const std::string defend_button = "C:/Projects/The Rogue's Woods/Assets/defendbutton.png";
+const std::string spell_button = "C:/Projects/The Rogue's Woods/Assets/spellbutton.png";
 
 #endif

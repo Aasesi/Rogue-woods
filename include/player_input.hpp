@@ -10,7 +10,7 @@
 class Player_input : public interface_element
 {
 private:
-    // Text 
+    // Text
     sf::Text _text;
     sf::Font _font;
     const std::string default_string = "Write your message here...";
@@ -20,24 +20,29 @@ private:
     int size_of_basic_options = 1;
     std::set<std::string> options;
     std::string picked_option;
-    
+
     // Boolean values
     bool clicked = false;
     bool sending_message = false;
     bool made_action = true;
-    
+
     // Required objects
-    Console* console;
+    Console *console;
 
 public:
-    Player_input(std::string path, sf::Vector2f position, Console*console_ptr);
+    Player_input(std::string path, sf::Vector2f position, Console *console_ptr);
     void handle_input(sf::Event &event, sf::RenderWindow &window, sf::Vector2f mousepos) override;
     void update() override;
     void render(sf::RenderWindow &window) override;
-    bool check_option_availibility(std::string& text);
+    bool check_option_availibility(std::string &text);
     std::string retrive_picked_option();
     bool check_made_action();
-    void update_options(std::set<std::string> opt){options = opt;};
+    void update_options(std::set<std::string> opt) { options = opt; };
+    void set_picked_option(std::string some)
+    {
+        made_action = true;
+        picked_option = some;
+    };
 };
 
 #endif

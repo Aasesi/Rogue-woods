@@ -22,6 +22,23 @@ enum class Face_direction
     West
 };
 
+struct statistics
+{
+    int hp = 100;
+    int mana = 100;
+    int level = 1;
+    int experience = 0;
+
+    int inteligence = 10;
+    int strength = 10;
+    int dexterity = 10;
+    int vitality = 10;
+    int charisma = 10;
+
+    int gold = 0;
+};
+
+
 const std::string Direction_string[4] =
     {
         "North", "South", "East", "West"};

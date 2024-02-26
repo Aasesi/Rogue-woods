@@ -15,9 +15,20 @@ void Default_strategy::process_information(std::string picked_option, basic_info
     else
     {
         informations->possible_options = informations->current_position->see_options();
-        informations->text_to_display =  informations->current_position->Display_begin_description();
+        informations->text_to_display = informations->current_position->Display_begin_description();
     }
     informations->text_to_display += get_options(informations->possible_options);
+}
+
+void Default_strategy::process_information(Game_system *game_system, std::string picked_option)
+{
+    game_system->go_to_next_node(picked_option);
+    if (check_chance(0.8))
+    {
+        game_system->generate_fast_quest();
+        game_system->change_game_status(Game_status::Pop_up_quest);
+    }
+    game_system->get_text_to_display();
 }
 
 bool Default_strategy::check_chance(double chance)

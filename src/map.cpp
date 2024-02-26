@@ -40,9 +40,7 @@ void Map::make_nodes()
         std::vector<std::unique_ptr<Node>> new_nodes;
         for (int j = 0; j < columns; j++)
         {
-            // Typ terenu
             std::string d = my_utils::connect_strings_in_vector(descript[node_info.front().second]);
-            // To drugie z node_info to chyba nazwa miala być lecz moge się mylić
             new_nodes.emplace_back(std::make_unique<Node>(d, node_info.front().second, "Region not decided yet", "", i, j));
             node_info.pop();
         }
@@ -88,7 +86,6 @@ void Map::make_connection(Node *first, Node *second, Face_direction dir)
     first->add_neighbour(second, dir);
 }
 
-// Mozliwe ze mozna zamienic opcje na unique ptr moze idk zeby oszczedzic pamiec !!!
 void Map::create_moving_options()
 {
     std::unordered_map<std::string, std::vector<std::string>> keywords = my_utils::read_from_file("keywords.txt");

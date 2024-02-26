@@ -3,24 +3,15 @@
 
 #include <string>
 #include <unordered_map>
-
-struct statistics
-{
-    int hp = 100;
-    int mana = 100;
-
-    int inteligence = 1;
-    int strength = 1;
-    int dexterity = 1;
-    int vitality = 1;
-    int charisma = 1;
-};
+#include<utils.hpp>
 
 class Character
 {
 public:
     Character(){};
     ~Character(){};
+    void change_hp(int change){stats.hp -= change;};
+void add_hp(int change){stats.hp += change;};
 protected:
     std::string name;
     std::string species;

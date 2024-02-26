@@ -33,7 +33,6 @@ void Game::run()
 		{	
 			if (event.type == sf::Event::Closed)
 				this->window->close();
-			// Pamietaj zeby zrobic by przekazywało przez referencje albo w sumie nie trzeba chyba
 			statemanager->handleinput(event, *window, mousepos);
 
 		}
